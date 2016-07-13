@@ -1,25 +1,45 @@
 <div class="well">
+  <!-- The html 'form' element's job is to post the data in the form to the url you specify. It creates a 'POST' http request -->
   <form class="form-horizontal" novalidate name="playlistForm" ng-submit="createPlaylist()">
+  <!-- 'novalidate' (html) means the form is not to be validated by the browser when submitted, and instead we should let Angular validate it on submit. -->
     <fieldset>
       <legend>New Playlist</legend>
+   <!--    The scope of this page is defined in the controller, and tied to this template through playlist.states templateUrl. -->
       <div ng-show="serverError" class="alert alert-danger">
         {{ serverError }}
       </div>
+  <!--     The below refers to the error message div that pops up when certain requirements aren't met. 'ng-messages' is a directive that takes an object. The below '<div ng-message' properties map to keys on the ng-message object, and create errors for title. (playlistForm.title.$error). Illustration at the bottom -->
       <div ng-messages="playlistForm.title.$error" ng-hide="playlistForm.title.$pristine" role="alert">
+      <!-- 'alert alert-warning' are two different Bootstrap/css classes -->
         <div ng-message="required" class="alert alert-warning">Please enter a title</div>
         <div ng-message="maxlength" class="alert alert-warning">Title is too long</div>
       </div>
       <div class="form-group">
         <label for="title" class="col-xs-2 control-label">Title</label>
         <div class="col-xs-10">
+        <!-- 'ng-model' creates an angular object to which we can set properties. This adds it to the scope and is referenced in playlist.controller.js -->
           <input class="form-control" name="title" type="text" ng-model="newPlaylist.name" required ng-maxlength="16">
         </div>
       </div>
+      <!-- The below classes are also both Bootstrap -->
       <div class="form-group">
         <div class="col-xs-10 col-xs-offset-2">
+        <!-- The button type 'submit' tells us that when you click it, the form's ng-submit function should be called. -->
           <button type="submit" class="btn btn-success" ng-disabled="playlistForm.$invalid">Create Playlist</button>
         </div>
       </div>
     </fieldset>
   </form>
 </div>
+
+<!--
+OBJECT:
+playlistForm = {
+  $invalid: true, (built-in to every angular form)
+  title: {
+    $error: {  (attached to any input we add)
+      required: true, (would show error msg)
+      maxLength: false
+    }
+  }
+} -->
