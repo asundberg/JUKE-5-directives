@@ -13,10 +13,12 @@ juke.directive('footerPlayer', function (PlayerFactory, SongFactory) {
     templateUrl: '/js/directives/templates/footer.html',
     link: function (scope, element, attrs) {
       angular.extend(scope, PlayerFactory); // copy props from param2 to param1
-      angular.extend(scope, SongFactory);
-
-      scope.handleProgressClick = function (evt) {
-        PlayerFactory.seek(evt.offsetX / evt.currentTarget.scrollWidth);
+      scope.toggle = function () {
+        if ( PlayerFactory.isPlaying() ) PlayerFactory.pause();
+        else PlayerFactory.resume();
+      };
+      scope.getPercent = function () {
+        return PlayerFactory.getProgress() * 100;
       };
     }
   };
