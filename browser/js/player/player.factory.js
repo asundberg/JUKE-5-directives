@@ -76,6 +76,10 @@ juke.factory('PlayerFactory', function ($rootScope) {
     skip(-1);
   };
 
+  player.getPercent = function () {
+    return player.getProgress() * 100;
+  };
+
   player.getProgress = function () {
     return progress;
   };
