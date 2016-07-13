@@ -7,12 +7,13 @@ juke.directive('sideBar', function () {
   };
 });
 
-juke.directive('footerPlayer', function (PlayerFactory) {
+juke.directive('footerPlayer', function (PlayerFactory, SongFactory) {
   return {
     restrict: 'E',
     templateUrl: '/js/directives/templates/footer.html',
     link: function (scope, element, attrs) {
       angular.extend(scope, PlayerFactory); // copy props from param2 to param1
+      angular.extend(scope, SongFactory);
 
       scope.handleProgressClick = function (evt) {
         PlayerFactory.seek(evt.offsetX / evt.currentTarget.scrollWidth);
@@ -40,20 +41,19 @@ juke.directive('songList', function (PlayerFactory) {
     },
     link: function (scope, element, attrs) {
       angular.extend(scope, PlayerFactory); // copy props from param2 to param1
-
-      // scope.artist = theArtist;
     }
   };
 });
 
-juke.directive('doubleClick', function (PlayerFactory) {
+juke.directive('doubleClick', function (PlayerFactory, SongFactory) {
   return {
     restrict: 'A',
     scope: {
-      doubleClick: '&'
+      doubleClick: '&' // The '&' takes what follows 'onDblClick=' and puts it on our empty isolate scope.
     },
     link: function (scope, element) {
       angular.extend(scope, PlayerFactory);
+      angular.extend(scope, SongFactory);
       element.on('dblclick', function () {
         scope.doubleClick();
       });

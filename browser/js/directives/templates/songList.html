@@ -8,8 +8,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr double-click="toggle(song, songs)" ng-repeat="song in songs" ng-class="{active: song === getCurrentSong() }">
+    <tr ng-repeat="song in songs" ng-class="{active: song === getCurrentSong() }" double-click="toggle(song, songs)">
       <td>
+<!--       Option to double clicking is using the play/pause button: -->
 <!--         <button class="btn btn-default btn-xs" ng-click="toggle(song)">
           <span class="glyphicon" ng-class="{ 'glyphicon-pause': isPlaying(song), 'glyphicon-play': !isPlaying(song) }"></span>
         </button> -->

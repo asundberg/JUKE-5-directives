@@ -1,6 +1,9 @@
 <div>
   <h3>{{ playlist.name }}</h3>
+
+  <!-- DIRECTIVE: -->
   <song-list songs="playlist.songs" ng-show="playlist.songs.length"></song-list>
+
 
   <small ng-hide="playlist.songs.length">No songs.</small>
   <hr>
